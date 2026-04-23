@@ -1,19 +1,18 @@
 'use client';
 
 import { BarChart3, Users, FileText, Settings } from "lucide-react";
-import { usePathname } from "next/navigation"; // Hook para saber em qual página estamos
+import { usePathname } from "next/navigation";
 import NavItem from "../atoms/NavItem";
 
 export default function Sidebar() {
-  const pathname = usePathname(); // Pega a URL atual (ex: /admin ou /admin/users)
+  const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-white shadow-lg p-5 h-screen flex flex-col justify-between border-r border-slate-100">
+    <aside className="w-64 bg-white dark:bg-slate-900 shadow-lg p-5 h-screen flex flex-col justify-between border-r border-slate-100 dark:border-slate-800 transition-colors">
       <div>
-        <h1 className="text-2xl font-black text-blue-700 mb-8">Azul Finanças</h1>
+        <h1 className="text-2xl font-black text-blue-700 dark:text-blue-500 mb-8">Azul Finanças</h1>
         
         <nav className="space-y-4">
-          {/* Dashboard agora é um NavItem e só fica azul se a rota for exatamente /admin */}
           <NavItem 
             label="Dashboard" 
             icon={<BarChart3 size={18} />} 
@@ -44,13 +43,13 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <div className="border-t border-slate-100 pt-4 flex items-center gap-3">
-        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+      <div className="border-t border-slate-100 dark:border-slate-800 pt-4 flex items-center gap-3">
+        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
           AF
         </div>
-        <div>
-          <p className="text-sm font-bold text-slate-900">Admin Azul</p>
-          <p className="text-xs text-slate-500 font-medium">admin@azulfinancas.com</p>
+        <div className="overflow-hidden">
+          <p className="text-sm font-bold text-slate-900 dark:text-white truncate">Admin Azul</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate">admin@azulfinancas.com</p>
         </div>
       </div>
     </aside>

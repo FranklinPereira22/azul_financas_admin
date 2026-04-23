@@ -9,22 +9,22 @@ interface LayoutProps {
 
 export default function DashboardLayout({ children, sidebar }: LayoutProps) {
   return (
-    // Removi o slate escuro e voltei para o branco total ou slate-50 (cinza quase branco)
-    <div className="flex min-h-screen bg-white font-sans text-slate-900">
+    /* 1. Troquei bg-white por cores que mudam no dark mode */
+    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
       
-      {/* Sidebar - Mantendo fixo na lateral */}
-      <aside className="sticky top-0 h-screen border-r border-slate-100 bg-white z-50">
+      {/* Sidebar - Agora com fundo dinâmico e borda sutil no dark */}
+      <aside className="sticky top-0 h-screen border-r border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 z-50">
         {sidebar}
       </aside>
 
       {/* Área de Conteúdo */}
-      <div className="flex-1 flex flex-col min-w-0 bg-white">
+      <div className="flex-1 flex flex-col min-w-0 bg-transparent">
         
-        {/* Topbar Fixo e Branco */}
+        {/* Topbar (A cor interna já é tratada no Topbar.tsx) */}
         <Topbar /> 
         
-        {/* Main com fundo branco/claro para não ficar cinza */}
-        <main className="p-8 bg-white">
+        {/* 2. Removi o bg-white fixo do main para ele herdar o fundo do layout ou usar dark mode */}
+        <main className="p-8 flex-1 bg-transparent">
           {children}
         </main>
       </div>

@@ -70,135 +70,145 @@ export default function UsuariosPage() {
 
   return (
     <DashboardLayout sidebar={<Sidebar />}>
-      <div className="space-y-6">
-        {/* Header da Página */}
-        <div className="flex justify-between items-center mb-8">
+      {/* CONTAINER PRINCIPAL */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
+        
+        {/* Header da Tabela */}
+        <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
           <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Gestão de Usuários</h1>
-            <p className="text-slate-500 font-medium">Controle de acessos da Azul Finanças</p>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Gestão de Usuários</h1>
+            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Controle de acessos da Azul Finanças</p>
           </div>
           <button 
             onClick={() => handleOpenModal()}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl flex items-center gap-2 transition-all shadow-lg shadow-blue-200 font-bold active:scale-95"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all shadow-sm shadow-blue-200 dark:shadow-none font-semibold active:scale-95"
           >
             <UserPlus size={20} /> Novo Usuário
           </button>
         </div>
 
-        {/* Card da Tabela */}
-        <div className="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-slate-50 text-slate-400 text-[11px] uppercase font-bold tracking-[0.1em]">
-                  <th className="px-8 py-6">Nome</th>
-                  <th className="px-8 py-6">E-mail</th>
-                  <th className="px-8 py-6">Status</th>
-                  <th className="px-8 py-6 text-right">Ações</th>
+        {/* TABELA */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="text-slate-900 dark:text-slate-100 text-xs uppercase font-bold tracking-widest bg-slate-50 dark:bg-slate-800/50">
+                <th className="px-6 py-4">Nome</th>
+                <th className="px-6 py-4">E-mail</th>
+                <th className="px-6 py-4">Status</th>
+                <th className="px-6 py-4 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              {users.map((user) => (
+                <tr key={user.id} className="group hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors">
+                  <td className="px-6 py-4 font-semibold text-slate-800 dark:text-slate-200">{user.name}</td>
+                  <td className="px-6 py-4 text-slate-600 dark:text-slate-400 font-medium">{user.email}</td>
+                  <td className="px-6 py-4">
+                    <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-tight ${
+                      user.status === 'Ativo' 
+                        ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' 
+                        : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
+                    }`}>
+                      {user.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex justify-end gap-3">
+                      <button 
+                        onClick={() => handleOpenModal(user)} 
+                        className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors border border-transparent hover:border-blue-200 dark:hover:border-blue-800"
+                      >
+                        <Edit size={18} />
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(user.id)} 
+                        className="p-2 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors border border-transparent hover:border-red-100 dark:hover:border-red-800"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {users.map((user) => (
-                  <tr key={user.id} className="group hover:bg-slate-50/50 transition-colors">
-                    <td className="px-8 py-5 font-bold text-slate-800">{user.name}</td>
-                    <td className="px-8 py-5 text-slate-500 font-medium">{user.email}</td>
-                    <td className="px-8 py-5">
-                      <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                        user.status === 'Ativo' 
-                          ? 'bg-emerald-50 text-emerald-600' 
-                          : 'bg-amber-50 text-amber-600'
-                      }`}>
-                        {user.status}
-                      </span>
-                    </td>
-                    <td className="px-8 py-5">
-                      <div className="flex justify-end gap-2">
-                        <button 
-                          onClick={() => handleOpenModal(user)} 
-                          className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
-                        >
-                          <Edit size={18} />
-                        </button>
-                        <button 
-                          onClick={() => handleDelete(user.id)} 
-                          className="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
-                        >
-                          <Trash2 size={18} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </div>
 
-      {/* Modal permanece com sua estrutura, mas com arredondamento maior */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-[40px] w-full max-w-md overflow-hidden shadow-2xl border border-white animate-in fade-in zoom-in duration-200">
-            <div className="px-10 pt-10 pb-6 flex justify-between items-center">
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-                {currentUser ? 'Editar Usuário' : 'Novo Usuário'}
-              </h2>
-              <button onClick={() => setIsModalOpen(false)} className="p-2 text-slate-400 hover:bg-slate-100 rounded-full transition-all">
-                <X size={20} />
-              </button>
-            </div>
+        {/* MODAL */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in duration-200">
+              <div className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <span className="w-2 h-8 bg-blue-600 rounded-full"></span>
+                  {currentUser ? 'Editar Usuário' : 'Novo Usuário'}
+                </h2>
+                <button onClick={() => setIsModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all">
+                  <X size={20} />
+                </button>
+              </div>
 
-            <form onSubmit={handleSave} className="px-10 pb-10 space-y-5">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-400 uppercase ml-1">Nome Completo</label>
-                <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <input 
+              <form onSubmit={handleSave} className="p-8 space-y-6">
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
+                    <User size={16} className="text-blue-600" /> Nome Completo
+                  </label>
+                  <input 
                     required
+                    placeholder="Ex: Neymar Júnior"
                     type="text" 
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border-none rounded-2xl text-slate-900 font-semibold focus:ring-2 focus:ring-blue-600/20 outline-none transition-all"
-                    />
+                    className="w-full p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all placeholder:text-slate-400"
+                  />
                 </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-400 uppercase ml-1">E-mail Profissional</label>
-                <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <input 
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
+                    <Mail size={16} className="text-blue-600" /> E-mail Profissional
+                  </label>
+                  <input 
                     required
+                    placeholder="admin@azulfinancas.com"
                     type="email" 
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border-none rounded-2xl text-slate-900 font-semibold focus:ring-2 focus:ring-blue-600/20 outline-none transition-all"
-                    />
+                    className="w-full p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all placeholder:text-slate-400"
+                  />
                 </div>
-              </div>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
+                    <ShieldCheck size={16} className="text-blue-600" /> Status da Conta
+                  </label>
+                  <select 
+                    value={formData.status}
+                    onChange={(e) => setFormData({...formData, status: e.target.value})}
+                    className="w-full p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all appearance-none"
+                  >
+                    <option value="Ativo" className="dark:bg-slate-900">Ativo</option>
+                    <option value="Pendente" className="dark:bg-slate-900">Pendente</option>
+                  </select>
+                </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-400 uppercase ml-1">Status</label>
-                <select 
-                  value={formData.status}
-                  onChange={(e) => setFormData({...formData, status: e.target.value})}
-                  className="w-full px-4 py-4 bg-slate-50 border-none rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-blue-600/20 outline-none transition-all appearance-none"
-                >
-                  <option value="Ativo">Ativo</option>
-                  <option value="Pendente">Pendente</option>
-                </select>
-              </div>
-
-              <button 
-                type="submit"
-                className="w-full py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 mt-4"
-              >
-                {currentUser ? 'Salvar Alterações' : 'Criar Usuário'}
-              </button>
-            </form>
+                <div className="flex gap-4 pt-4">
+                  <button 
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="flex-1 px-6 py-3 font-bold text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-700"
+                  >
+                    Cancelar
+                  </button>
+                  <button 
+                    type="submit"
+                    className="flex-1 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-200 dark:shadow-none"
+                  >
+                    {currentUser ? 'Atualizar' : 'Cadastrar'}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </DashboardLayout>
   );
 }
