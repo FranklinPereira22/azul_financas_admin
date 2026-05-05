@@ -14,4 +14,4 @@ del package-lock.json
     npm run dev
 
   3-Acesse o painel:
-    Abra o navegador em http://localhost:3000/admin
+    Abra o navegador em http://localhost:3000/
