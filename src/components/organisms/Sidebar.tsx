@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart3, Users, FileText, Settings } from "lucide-react";
+import { BarChart3, Users, FileText, Settings, NotebookPen, Package } from "lucide-react";
 import { usePathname } from "next/navigation";
 import NavItem from "../atoms/NavItem";
 
@@ -25,6 +25,20 @@ export default function Sidebar() {
             icon={<Users size={18} />} 
             href="/admin/users" 
             active={pathname === "/admin/users"} 
+          />
+
+          <NavItem 
+            label="CMS" 
+            icon={<NotebookPen size={18} />} 
+            href="/admin/cms" 
+            active={pathname === "/admin/cms"} 
+          />
+
+          <NavItem 
+            label="Serviços" 
+            icon={<Package size={18} />} 
+            href="/admin/services" 
+            active={pathname.includes("/services")}
           />
 
           <NavItem 

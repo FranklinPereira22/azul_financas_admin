@@ -106,7 +106,7 @@ export default function Topbar({ userName = "Admin Azul" }: TopbarProps) {
             className="flex items-center gap-2 md:gap-3 p-1 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all group"
           >
             <div className="w-8 h-8 md:w-9 md:h-9 bg-slate-900 dark:bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-black group-hover:bg-blue-600 transition-colors">
-              AD
+              AF
             </div>
             <div className="text-left hidden lg:block">
               <p className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-none">{userName}</p>

@@ -36,7 +36,7 @@ export default function UserHomePage() {
             <Settings size={20} />
           </button>
           <div className="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
-            <span className="text-xs font-black text-slate-600 dark:text-slate-400">US</span>
+            <span className="text-xs font-black text-slate-600 dark:text-slate-400">AF</span>
           </div>
         </div>
       </nav>
@@ -83,9 +83,11 @@ export default function UserHomePage() {
           </div>
         </div>
 
+        <Link href="/auth">
         <button className="mt-12 flex items-center gap-2 text-slate-400 font-bold hover:text-red-500 transition-colors">
           <LogOut size={18} /> Sair da conta
         </button>
+        </Link>
       </main>
     </div>
   );
